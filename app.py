@@ -40,13 +40,21 @@ def submit():
         "events": events
     }
 
-    # SEND TO FIREBASE
-    response = requests.post(FIREBASE_URL, json=data)
+    try:
+        # SEND TO FIREBASE
+        response = requests.post(FIREBASE_URL, json=data)
 
-    if response.status_code == 200:
-        return redirect('/')   # go back to form
-    else:
-        return f"❌ Error: {response.text}"
+        # DEBUG LOGS (WILL SHOW IN RENDER LOGS)
+        print("Status Code:", response.status_code)
+        print("Response Text:", response.text)
+
+        if response.status_code == 200:
+            return "✅ Registration Successful!"
+        else:
+            return f"❌ Firebase Error: {response.text}"
+
+    except Exception as e:
+        return f"❌ Exception Occurred: {str(e)}"
 
 
 # RUN APP

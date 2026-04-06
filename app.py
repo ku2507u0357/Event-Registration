@@ -43,12 +43,8 @@ def submit():
     # SEND TO FIREBASE
     response = requests.post(FIREBASE_URL, json=data)
 
-    # ✅ DEBUG (NOW INSIDE FUNCTION)
-    print("Status Code:", response.status_code)
-    print("Response Text:", response.text)
-
     if response.status_code == 200:
-        return redirect('/')
+        return redirect('/')   # go back to form
     else:
         return f"❌ Error: {response.text}"
 
